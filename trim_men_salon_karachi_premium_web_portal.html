@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIM MEN Salon Karachi | Premium Grooming & Management Workspace</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#db2777',     /* Pink */
+                            green: '#65a30d',    /* Apple Green */
+                            violet: '#7c3aed',   /* Violet */
+                            dark: '#0b0f17',
+                            card: '#161e2e',
+                            border: '#2a3447'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome / Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Business Intelligence -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f17;
+            color: #f3f4f6;
+        }
+        .gradient-brand {
+            background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #65a30d 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(22, 30, 46, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-pink { box-shadow: 0 0 20px rgba(219, 39, 119, 0.25); }
+        .glow-violet { box-shadow: 0 0 20px rgba(124, 58, 237, 0.25); }
+        .glow-green { box-shadow: 0 0 20px rgba(101, 163, 13, 0.25); }
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f17; }
+        ::-webkit-scrollbar-thumb { background: #2a3447; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-pink selection:text-white">
+
+    <!-- Top Notification & Quick Bar -->
+    <div class="bg-gradient-to-r from-brand-violet via-brand-pink to-brand-green text-white text-xs py-1.5 px-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-black/40 uppercase tracking-wider">
+                    <i class="fa-solid fa-circle text-[8px] text-green-400 mr-1.5 animate-pulse"></i> Operating Daily 11:00 AM - 10:00 PM
+                </span>
+                <span class="hidden sm:inline text-xs opacity-90"><i class="fa-solid fa-location-dot mr-1"></i> DHA Ph 6 | PECHS Tariq Rd | Gulshan | Scheme 33</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium">
+                <a href="https://wa.me/923001234567" target="_blank" class="hover:underline flex items-center gap-1">
+                    <i class="fa-brands fa-whatsapp text-green-300"></i> WhatsApp Support: +92 300 1234567
+                </a>
+                <span class="hidden md:inline">|</span>
+                <button onclick="toggleViewMode()" id="viewModeToggleBtn" class="hidden md:flex items-center gap-1 bg-black/30 hover:bg-black/60 px-2.5 py-0.5 rounded transition font-semibold text-amber-300">
+                    <i class="fa-solid fa-sliders"></i> Switch to Admin Workspace
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-11 h-11 rounded-xl gradient-brand p-0.5 flex items-center justify-center shadow-lg">
+                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-scissors text-xl text-brand-pink"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wider uppercase text-white flex items-center gap-2">
+                        TRIM <span class="text-brand-pink">MEN</span>
+                    </h1>
+                    <p class="text-[10px] tracking-widest text-brand-green font-semibold uppercase">Karachi Grooming Lounge</p>
+                </div>
+            </div>
+
+            <!-- Customer Navigation Links -->
+            <nav id="customerNav" class="hidden lg:flex items-center gap-1 bg-brand-dark/60 p-1.5 rounded-full border border-brand-border">
+                <button onclick="switchTab('home')" class="nav-link active px-4 py-2 rounded-full text-sm font-medium text-white transition hover:text-brand-pink">Services & Home</button>
+                <button onclick="switchTab('branches')" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 transition hover:text-brand-pink">Branches</button>
+                <button onclick="switchTab('campaigns')" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 transition hover:text-brand-pink">Special Packages</button>
+                <button onclick="switchTab('booking')" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 transition hover:text-brand-pink">Book Online</button>
+            </nav>
+
+            <!-- Admin Nav Links (Hidden by default) -->
+            <nav id="adminNav" class="hidden lg:flex items-center gap-1 bg-brand-violet/20 p-1.5 rounded-full border border-brand-violet/40">
+                <button onclick="switchAdminTab('inbox')" class="admin-link active px-3 py-1.5 rounded-full text-xs font-semibold text-white transition">Inquiries Inbox <span class="bg-brand-pink text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1">4</span></button>
+                <button onclick="switchAdminTab('crm')" class="admin-link px-3 py-1.5 rounded-full text-xs font-semibold text-gray-300 transition">Workflows & Retention</button>
+                <button onclick="switchAdminTab('operations')" class="admin-link px-3 py-1.5 rounded-full text-xs font-semibold text-gray-300 transition">Staff & Schedule</button>
+                <button onclick="switchAdminTab('analytics')" class="admin-link px-3 py-1.5 rounded-full text-xs font-semibold text-gray-300 transition">AI Intelligence</button>
+            </nav>
+
+            <!-- CTA & Quick Switcher -->
+            <div class="flex items-center gap-3">
+                <button onclick="openBookingModal()" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-brand-pink to-brand-violet hover:from-pink-600 hover:to-purple-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-lg hover:shadow-brand-pink/20 transition transform active:scale-95">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Book Appointment</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-gray-300 hover:text-white p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-brand-card border-b border-brand-border p-4 space-y-3">
+            <div class="flex flex-col gap-2">
+                <button onclick="switchTab('home'); toggleMobileMenu()" class="text-left py-2 px-3 rounded hover:bg-brand-border text-white">Services Catalog</button>
+                <button onclick="switchTab('branches'); toggleMobileMenu()" class="text-left py-2 px-3 rounded hover:bg-brand-border text-gray-300">Karachi Branches</button>
+                <button onclick="switchTab('campaigns'); toggleMobileMenu()" class="text-left py-2 px-3 rounded hover:bg-brand-border text-gray-300">Campaign Packages</button>
+                <button onclick="switchTab('booking'); toggleMobileMenu()" class="text-left py-2 px-3 rounded hover:bg-brand-border text-gray-300">Book Appointment</button>
+                <hr class="border-brand-border my-1">
+                <button onclick="toggleViewMode(); toggleMobileMenu()" class="text-left py-2 px-3 rounded bg-brand-violet/30 text-amber-300 font-semibold flex items-center justify-between">
+                    <span>Toggle Admin Workspace</span>
+                    <i class="fa-solid fa-user-shield"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= CUSTOMER VIEW ================= -->
+        <div id="customerPortal" class="space-y-12">
+
+            <!-- Hero Section -->
+            <section id="heroSection" class="relative rounded-3xl overflow-hidden p-8 sm:p-12 md:p-16 border border-brand-border bg-gradient-to-br from-brand-card via-brand-dark to-brand-card">
+                <!-- Decorative background elements -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-violet/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-pink/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-pink/10 border border-brand-pink/30 text-brand-pink text-xs font-semibold">
+                        <i class="fa-solid fa-crown text-brand-green"></i> Karachi's Premier Grooming Destination for Men
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Sharp Looks. <br>
+                        <span class="gradient-text">Unmatched Precision.</span>
+                    </h1>
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed">
+                        Experience world-class haircuts, beard styling, facial treatments, and relaxing spa therapies across DHA, PECHS, Gulshan & Scheme 33. Elevate your personal style today.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <button onclick="openBookingModal()" class="bg-brand-pink hover:bg-pink-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg glow-pink transition transform hover:-translate-y-0.5">
+                            Book Your Slot Now
+                        </button>
+                        <button onclick="switchTab('branches')" class="bg-brand-dark/80 hover:bg-brand-dark border border-brand-border text-gray-200 px-6 py-3.5 rounded-xl font-semibold text-base transition flex items-center gap-2">
+                            <i class="fa-solid fa-store text-brand-green"></i> Find Nearest Branch
+                        </button>
+                    </div>
+
+                    <!-- Quick Metrics -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-brand-border/60">
+                        <div>
+                            <p class="text-2xl font-bold text-white">4.9 ★</p>
+                            <p class="text-xs text-gray-400">12,000+ Reviews</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-brand-green">4 Branches</p>
+                            <p class="text-xs text-gray-400">Across Karachi</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-brand-pink">25+ Staff</p>
+                            <p class="text-xs text-gray-400">Master Barbers & Techs</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-brand-violet">100%</p>
+                            <p class="text-xs text-gray-400">Hygienic & Sanitized</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categorized Services Catalog -->
+            <section id="servicesSection" class="space-y-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+                            <span>Our Premium Services</span>
+                            <span class="text-xs font-normal text-brand-green bg-brand-green/10 border border-brand-green/30 px-2.5 py-1 rounded-full">Prices in PKR</span>
+                        </h2>
+                        <p class="text-gray-400 text-sm mt-1">Select from our specialized grooming menu crafted for gentlemen.</p>
+                    </div>
+
+                    <!-- Service Category Filter Tabs -->
+                    <div class="flex flex-wrap gap-2 bg-brand-card p-1.5 rounded-2xl border border-brand-border">
+                        <button onclick="filterServices('all')" class="service-tab active px-4 py-2 rounded-xl text-xs font-semibold text-white bg-brand-violet transition">All</button>
+                        <button onclick="filterServices('hair')" class="service-tab px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition">Haircut & Styling</button>
+                        <button onclick="filterServices('beard')" class="service-tab px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition">Beard Sculpting</button>
+                        <button onclick="filterServices('facial')" class="service-tab px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition">Facials & Skin</button>
+                        <button onclick="filterServices('spa')" class="service-tab px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition">Spa & Body</button>
+                    </div>
+                </div>
+
+                <!-- Services Grid -->
+                <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Service cards rendered dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- Karachi Branches Section -->
+            <section id="branchesSection" class="space-y-6 pt-6">
+                <div class="text-center max-w-2xl mx-auto space-y-2">
+                    <span class="text-xs font-extrabold uppercase text-brand-pink tracking-widest">Convenient Locations</span>
+                    <h2 class="text-3xl font-extrabold text-white">TRIM MEN Salon Karachi Branches</h2>
+                    <p class="text-gray-400 text-sm">Visit any of our flagship salons equipped with modern luxury chairs and full air-conditioned lounge amenities.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Branch 1: DHA Phase 6 -->
+                    <div class="bg-brand-card rounded-2xl p-6 border border-brand-border space-y-4 hover:border-brand-pink/50 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-brand-pink/20 text-brand-pink text-xs px-2.5 py-1 rounded-full font-bold">Flagship Branch</span>
+                                <h3 class="text-xl font-bold text-white mt-2">DHA Phase 6 Lounge</h3>
+                            </div>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded font-medium">
+                                <i class="fa-solid fa-door-open mr-1"></i> Open Today
+                            </span>
+                        </div>
+                        <p class="text-gray-300 text-sm"><i class="fa-solid fa-location-dot text-brand-pink mr-2"></i> Plot 34-C, Main Khayaban-e-Seher, Commercial Area, DHA Phase 6, Karachi</p>
+                        <div class="text-xs text-gray-400 space-y-1">
+                            <p><i class="fa-regular fa-clock text-brand-green mr-2"></i> Hours: 11:00 AM – 10:00 PM (Mon - Sun)</p>
+                            <p><i class="fa-solid fa-phone text-brand-violet mr-2"></i> Direct: +92 21 35849011 | +92 300 1234567</p>
+                        </div>
+                        <div class="pt-2 flex gap-3">
+                            <button onclick="selectBranchAndBook('DHA Phase 6')" class="flex-1 bg-brand-violet hover:bg-violet-700 text-white text-xs py-2.5 rounded-lg font-semibold transition">Book at DHA</button>
+                            <a href="https://wa.me/923001234567?text=Hi%20TRIM%20MEN,%20I%20want%20to%20inquire%20about%20DHA%20Branch" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Branch 2: PECHS Tariq Road -->
+                    <div class="bg-brand-card rounded-2xl p-6 border border-brand-border space-y-4 hover:border-brand-violet/50 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-brand-violet/20 text-brand-violet text-xs px-2.5 py-1 rounded-full font-bold">Central Karachi</span>
+                                <h3 class="text-xl font-bold text-white mt-2">PECHS / Tariq Road Lounge</h3>
+                            </div>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded font-medium">
+                                <i class="fa-solid fa-door-open mr-1"></i> Open Today
+                            </span>
+                        </div>
+                        <p class="text-gray-300 text-sm"><i class="fa-solid fa-location-dot text-brand-pink mr-2"></i> Siraj-ud-Daula Rd, Block 2, PECHS (Near Tariq Rd Signal), Karachi</p>
+                        <div class="text-xs text-gray-400 space-y-1">
+                            <p><i class="fa-regular fa-clock text-brand-green mr-2"></i> Hours: 11:00 AM – 10:00 PM (Mon - Sun)</p>
+                            <p><i class="fa-solid fa-phone text-brand-violet mr-2"></i> Direct: +92 21 34551299 | +92 301 9876543</p>
+                        </div>
+                        <div class="pt-2 flex gap-3">
+                            <button onclick="selectBranchAndBook('PECHS / Tariq Road')" class="flex-1 bg-brand-violet hover:bg-violet-700 text-white text-xs py-2.5 rounded-lg font-semibold transition">Book at PECHS</button>
+                            <a href="https://wa.me/923019876543?text=Hi%20TRIM%20MEN,%20I%20want%20to%20inquire%20about%20PECHS%20Branch" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Branch 3: Gulshan-e-Iqbal -->
+                    <div class="bg-brand-card rounded-2xl p-6 border border-brand-border space-y-4 hover:border-brand-green/50 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-brand-green/20 text-brand-green text-xs px-2.5 py-1 rounded-full font-bold">East Zone</span>
+                                <h3 class="text-xl font-bold text-white mt-2">Gulshan-e-Iqbal Branch</h3>
+                            </div>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded font-medium">
+                                <i class="fa-solid fa-door-open mr-1"></i> Open Today
+                            </span>
+                        </div>
+                        <p class="text-gray-300 text-sm"><i class="fa-solid fa-location-dot text-brand-pink mr-2"></i> Block 5, Main Rashid Minhas Road (Near NIPA), Gulshan-e-Iqbal, Karachi</p>
+                        <div class="text-xs text-gray-400 space-y-1">
+                            <p><i class="fa-regular fa-clock text-brand-green mr-2"></i> Hours: 11:00 AM – 10:00 PM (Mon - Sun)</p>
+                            <p><i class="fa-solid fa-phone text-brand-violet mr-2"></i> Direct: +92 21 34812233</p>
+                        </div>
+                        <div class="pt-2 flex gap-3">
+                            <button onclick="selectBranchAndBook('Gulshan-e-Iqbal')" class="flex-1 bg-brand-violet hover:bg-violet-700 text-white text-xs py-2.5 rounded-lg font-semibold transition">Book at Gulshan</button>
+                            <a href="https://wa.me/923001234567" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Branch 4: Safoora / Scheme 33 -->
+                    <div class="bg-brand-card rounded-2xl p-6 border border-brand-border space-y-4 hover:border-brand-pink/50 transition">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-purple-500/20 text-purple-400 text-xs px-2.5 py-1 rounded-full font-bold">New Express Lounge</span>
+                                <h3 class="text-xl font-bold text-white mt-2">Safoora / Scheme 33 Branch</h3>
+                            </div>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded font-medium">
+                                <i class="fa-solid fa-door-open mr-1"></i> Open Today
+                            </span>
+                        </div>
+                        <p class="text-gray-300 text-sm"><i class="fa-solid fa-location-dot text-brand-pink mr-2"></i> Sector 38-A, Main University Rd, Gulzar-e-Hijri Scheme 33, Karachi</p>
+                        <div class="text-xs text-gray-400 space-y-1">
+                            <p><i class="fa-regular fa-clock text-brand-green mr-2"></i> Hours: 11:00 AM – 10:00 PM (Mon - Sun)</p>
+                            <p><i class="fa-solid fa-phone text-brand-violet mr-2"></i> Direct: +92 302 4455667</p>
+                        </div>
+                        <div class="pt-2 flex gap-3">
+                            <button onclick="selectBranchAndBook('Safoora / Scheme 33')" class="flex-1 bg-brand-violet hover:bg-violet-700 text-white text-xs py-2.5 rounded-lg font-semibold transition">Book at Scheme 33</button>
+                            <a href="https://wa.me/923024455667" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Campaign Landing Section -->
+            <section id="campaignsSection" class="bg-gradient-to-r from-brand-violet/30 via-brand-card to-brand-pink/20 rounded-3xl p-8 border border-brand-border space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="bg-brand-green text-black text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full">Active Approved Campaigns</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">Special Grooming Packages & Corporate Offers</h2>
+                    </div>
+                    <span class="text-xs text-gray-400">SEO & Social Media Landing Campaigns</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Offer 1 -->
+                    <div class="bg-brand-dark/90 p-6 rounded-2xl border border-brand-pink/30 space-y-3 relative overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 text-brand-pink/10 text-8xl font-black">01</div>
+                        <h3 class="text-xl font-bold text-white">Grooming Deluxe Package</h3>
+                        <p class="text-gray-300 text-xs">Executive Haircut + Beard Sculpting + Hydrating Charcoal Facial + Scalp Massage.</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-black text-brand-green">PKR 5,500</span>
+                            <span class="text-xs text-gray-400 line-through">PKR 7,800</span>
+                            <span class="text-[10px] bg-brand-pink text-white px-2 py-0.5 rounded font-bold">Save 30%</span>
+                        </div>
+                        <button onclick="quickBookCampaign('Grooming Deluxe Package')" class="w-full bg-brand-pink hover:bg-pink-600 text-white text-xs font-bold py-2.5 rounded-xl transition">Claim Package Offer</button>
+                    </div>
+
+                    <!-- Offer 2 -->
+                    <div class="bg-brand-dark/90 p-6 rounded-2xl border border-brand-violet/30 space-y-3 relative overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 text-brand-violet/10 text-8xl font-black">02</div>
+                        <h3 class="text-xl font-bold text-white">Groom / Wedding Prep VIP Day</h3>
+                        <p class="text-gray-300 text-xs">Janssen Whitening Facial + Hair Spa Keratin Treatment + Royal Shave + Pedicure & Manicure.</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-black text-brand-green">PKR 14,999</span>
+                            <span class="text-xs text-gray-400 line-through">PKR 19,500</span>
+                            <span class="text-[10px] bg-brand-violet text-white px-2 py-0.5 rounded font-bold">VIP Suite</span>
+                        </div>
+                        <button onclick="quickBookCampaign('Groom Wedding Prep VIP')" class="w-full bg-brand-violet hover:bg-violet-700 text-white text-xs font-bold py-2.5 rounded-xl transition">Reserve Wedding Groom Suite</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ================= ADMIN MANAGEMENT WORKSPACE ================= -->
+        <div id="adminPortal" class="hidden space-y-8">
+
+            <div class="bg-brand-card p-6 rounded-2xl border border-brand-violet/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="text-xs text-amber-400 font-semibold uppercase tracking-wider"><i class="fa-solid fa-lock mr-1"></i> Management Portal</span>
+                    <h2 class="text-2xl font-extrabold text-white">TRIM MEN Operational & AI Dashboard</h2>
+                    <p class="text-xs text-gray-400">Branch Management • Omnichannel Inquiries • AI Conversions • Retention Workflows</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-3 py-1.5 rounded-lg border border-emerald-500/30 flex items-center gap-1.5 font-medium">
+                        <i class="fa-solid fa-bolt text-xs animate-pulse"></i> AI Sync Active
+                    </span>
+                    <button onclick="toggleViewMode()" class="bg-brand-dark hover:bg-black text-gray-300 text-xs px-3 py-1.5 rounded-lg border border-brand-border font-medium">
+                        Return to Salon Website
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Tab 1: Omnichannel Inquiries Inbox -->
+            <div id="adminInboxTab" class="admin-tab-content space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Conversations List -->
+                    <div class="bg-brand-card rounded-2xl border border-brand-border p-4 space-y-4">
+                        <div class="flex items-center justify-between pb-2 border-b border-brand-border">
+                            <h3 class="font-bold text-white text-sm">Customer Inquiries</h3>
+                            <span class="text-xs text-gray-400">4 Unanswered</span>
+                        </div>
+                        <!-- Channels Filter -->
+                        <div class="flex gap-1 overflow-x-auto pb-1 text-xs">
+                            <button class="bg-brand-violet text-white px-2.5 py-1 rounded-lg">All Channels</button>
+                            <button class="bg-brand-dark text-gray-400 hover:text-white px-2.5 py-1 rounded-lg">WhatsApp</button>
+                            <button class="bg-brand-dark text-gray-400 hover:text-white px-2.5 py-1 rounded-lg">Messenger</button>
+                            <button class="bg-brand-dark text-gray-400 hover:text-white px-2.5 py-1 rounded-lg">Insta DM</button>
+                        </div>
+                        <!-- List Items -->
+                        <div class="space-y-2 max-h-[450px] overflow-y-auto pr-1" id="inboxThreadList">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Active Conversation Viewer -->
+                    <div class="lg:col-span-2 bg-brand-card rounded-2xl border border-brand-border p-4 flex flex-col justify-between h-[520px]">
+                        <div id="activeThreadHeader" class="pb-3 border-b border-brand-border flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-white text-base" id="activeCustomerName">Select a Thread</h4>
+                                <p class="text-xs text-gray-400" id="activeCustomerMeta">Channel & Branch Info</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-1 rounded font-bold" id="activeThreadStatus">Pending</span>
+                                <select id="assignStaffSelect" class="bg-brand-dark text-gray-200 text-xs rounded border border-brand-border px-2 py-1">
+                                    <option value="unassigned">Assign Barber/Staff...</option>
+                                    <option value="Sheroz">Master Barber Sheroz</option>
+                                    <option value="Azhar">Specialist Azhar</option>
+                                    <option value="Kamran">Barber Kamran</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Window -->
+                        <div class="flex-1 overflow-y-auto py-4 space-y-3" id="activeThreadMessages">
+                            <div class="text-center text-xs text-gray-500 my-10">Select a customer inquiry thread on the left to view and respond.</div>
+                        </div>
+
+                        <!-- Reply Box & Quick Templates -->
+                        <div class="pt-3 border-t border-brand-border space-y-2">
+                            <div class="flex gap-2 text-[10px] overflow-x-auto">
+                                <span class="text-gray-400 font-semibold">Quick Template:</span>
+                                <button onclick="insertTemplate('Share DHA pricing')" class="bg-brand-dark hover:bg-brand-border text-gray-300 px-2 py-0.5 rounded border border-brand-border">DHA Prices</button>
+                                <button onclick="insertTemplate('Confirm 4:00 PM Slot')" class="bg-brand-dark hover:bg-brand-border text-gray-300 px-2 py-0.5 rounded border border-brand-border">Confirm Slot</button>
+                                <button onclick="insertTemplate('Send WhatsApp Booking Link')" class="bg-brand-dark hover:bg-brand-border text-gray-300 px-2 py-0.5 rounded border border-brand-border">WhatsApp Link</button>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="adminReplyInput" placeholder="Type response or select template..." class="flex-1 bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-pink">
+                                <button onclick="sendAdminReply()" class="bg-brand-pink hover:bg-pink-600 text-white text-xs px-4 py-2 rounded-xl font-bold">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Tab 2: Retention Workflows & Campaigns -->
+            <div id="adminCrmTab" class="admin-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Workflow 1 -->
+                    <div class="bg-brand-card p-5 rounded-2xl border border-brand-border space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-white text-sm">1. Instant Inquiry Response</h4>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-green"></div>
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-400">Triggers immediately when a user fills a web form or leaves an unanswered DM after 2 mins.</p>
+                        <div class="bg-brand-dark p-2.5 rounded-lg border border-brand-border text-xs text-gray-300 italic">
+                            "Hi {Name}! Thanks for reaching out to TRIM MEN Salon {Branch}. Would you like to reserve a slot today?"
+                        </div>
+                        <div class="flex justify-between text-[11px] text-brand-green font-semibold pt-1">
+                            <span>Conversions: 42%</span>
+                            <span>Sent: 1,240</span>
+                        </div>
+                    </div>
+
+                    <!-- Workflow 2 -->
+                    <div class="bg-brand-card p-5 rounded-2xl border border-brand-border space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-white text-sm">2. Pre-Appointment Reminder</h4>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-pink"></div>
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-400">Sends WhatsApp notification 2 hours prior to scheduled appointment time slot.</p>
+                        <div class="bg-brand-dark p-2.5 rounded-lg border border-brand-border text-xs text-gray-300 italic">
+                            "Reminder: Your grooming slot with {Barber} at TRIM MEN {Branch} is today at {Time}. Reply '1' to confirm."
+                        </div>
+                        <div class="flex justify-between text-[11px] text-brand-pink font-semibold pt-1">
+                            <span>No-Show Reduction: -35%</span>
+                            <span>Sent: 890</span>
+                        </div>
+                    </div>
+
+                    <!-- Workflow 3 -->
+                    <div class="bg-brand-card p-5 rounded-2xl border border-brand-border space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-white text-sm">3. 30-Day Repeat Beard/Hair Cut</h4>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-violet"></div>
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-400">Automatically re-engages client 25-30 days post-haircut to book their next trim.</p>
+                        <div class="bg-brand-dark p-2.5 rounded-lg border border-brand-border text-xs text-gray-300 italic">
+                            "It's been 4 weeks since your last haircut at TRIM MEN! Time for a sharp tune-up? Book online & get 10% off."
+                        </div>
+                        <div class="flex justify-between text-[11px] text-brand-violet font-semibold pt-1">
+                            <span>Repeat Visits: +28%</span>
+                            <span>Sent: 510</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Tab 3: Staff & Roster Operations -->
+            <div id="adminOperationsTab" class="admin-tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Staff Cards -->
+                    <div class="lg:col-span-2 bg-brand-card p-6 rounded-2xl border border-brand-border space-y-4">
+                        <h3 class="font-bold text-white text-base">Master Barbers & Specialists Roster</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="staffRosterGrid">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Today's Schedule Board -->
+                    <div class="bg-brand-card p-6 rounded-2xl border border-brand-border space-y-4">
+                        <h3 class="font-bold text-white text-base">Today's Live Appointments</h3>
+                        <div class="space-y-3" id="todayAppointmentsList">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Tab 4: AI Revenue & Business Intelligence -->
+            <div id="adminAnalyticsTab" class="admin-tab-content hidden space-y-6">
+                <!-- KPI Overview Cards -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-brand-card p-4 rounded-xl border border-brand-border">
+                        <p class="text-xs text-gray-400">Monthly Revenue (PKR)</p>
+                        <p class="text-2xl font-black text-brand-green mt-1">Rs. 2,840,000</p>
+                        <span class="text-[10px] text-emerald-400 font-semibold"><i class="fa-solid fa-arrow-trend-up"></i> +18% vs last month</span>
+                    </div>
+                    <div class="bg-brand-card p-4 rounded-xl border border-brand-border">
+                        <p class="text-xs text-gray-400">Total Inquiries Received</p>
+                        <p class="text-2xl font-black text-brand-pink mt-1">1,480</p>
+                        <span class="text-[10px] text-gray-400">Via WhatsApp, Web & IG</span>
+                    </div>
+                    <div class="bg-brand-card p-4 rounded-xl border border-brand-border">
+                        <p class="text-xs text-gray-400">Inquiry-to-Booking Rate</p>
+                        <p class="text-2xl font-black text-brand-violet mt-1">64.5%</p>
+                        <span class="text-[10px] text-purple-400 font-semibold">+6.2% AI Assistant boost</span>
+                    </div>
+                    <div class="bg-brand-card p-4 rounded-xl border border-brand-border">
+                        <p class="text-xs text-gray-400">No-Show Rate</p>
+                        <p class="text-2xl font-black text-amber-400 mt-1">4.2%</p>
+                        <span class="text-[10px] text-emerald-400 font-semibold">-2.1% after SMS reminders</span>
+                    </div>
+                </div>
+
+                <!-- AI Recommendations & Analytics Visuals -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-brand-card p-6 rounded-2xl border border-brand-border space-y-4">
+                        <h3 class="font-bold text-white text-base">Revenue Breakdown by Karachi Branch</h3>
+                        <div class="h-64">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Strategic AI Recommendations -->
+                    <div class="bg-brand-card p-6 rounded-2xl border border-brand-border space-y-4">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-brand-pink text-xl"></i>
+                            <h3 class="font-bold text-white text-base">AI Business Recommendations</h3>
+                        </div>
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-brand-dark rounded-xl border border-brand-pink/30 space-y-1">
+                                <span class="text-brand-pink font-bold uppercase text-[10px]">Staff Optimization</span>
+                                <p class="text-gray-300">Peak demand for Beard Sculpting at DHA branch occurs Friday 5 PM - 9 PM. Recommend assigning 1 additional barber during peak weekend slots.</p>
+                            </div>
+                            <div class="p-3 bg-brand-dark rounded-xl border border-brand-green/30 space-y-1">
+                                <span class="text-brand-green font-bold uppercase text-[10px]">High Margin Upsell</span>
+                                <p class="text-gray-300">38% of customers booking Executive Haircut accept the Charcoal Facial add-on when prompted by the AI Chatbot during booking.</p>
+                            </div>
+                            <div class="p-3 bg-brand-dark rounded-xl border border-brand-violet/30 space-y-1">
+                                <span class="text-brand-violet font-bold uppercase text-[10px]">Branch Expansion</span>
+                                <p class="text-gray-300">Safoora / Scheme 33 branch booking volume grew by 24% this month. Consider opening Sunday VIP pre-booking hours.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FLOATING AI AGENT CHAT WIDGET -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Trigger Button -->
+        <button onclick="toggleAiChat()" id="aiChatBtn" class="bg-gradient-to-r from-brand-pink via-brand-violet to-brand-green p-0.5 rounded-full shadow-2xl glow-pink hover:scale-105 transition transform">
+            <div class="bg-brand-dark hover:bg-brand-card px-4 py-3 rounded-full flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-brand-pink/20 flex items-center justify-center text-brand-pink">
+                    <i class="fa-solid fa-robot text-base"></i>
+                </div>
+                <div class="text-left hidden sm:block">
+                    <p class="text-xs font-bold text-white leading-none">TRIM AI Assistant</p>
+                    <p class="text-[10px] text-brand-green leading-tight">Prices & Booking</p>
+                </div>
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse"></span>
+            </div>
+        </button>
+
+        <!-- AI Chat Window Panel -->
+        <div id="aiChatWindow" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 glass-panel rounded-3xl border border-brand-border shadow-2xl overflow-hidden flex flex-col h-[500px]">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-brand-violet to-brand-pink p-4 flex justify-between items-center text-white">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-black/30 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-scissors text-amber-300"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm leading-none">TRIM MEN AI Concierge</h3>
+                        <p class="text-[10px] text-pink-100 mt-0.5">Karachi Branch & Price Expert</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleGeminiSettings()" title="Gemini API Key" class="text-white/80 hover:text-white text-xs"><i class="fa-solid fa-key"></i></button>
+                    <button onclick="toggleAiChat()" class="text-white/80 hover:text-white text-base"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- Gemini Key Settings Bar (Hidden by default) -->
+            <div id="geminiKeyBar" class="hidden bg-brand-dark p-2.5 border-b border-brand-border text-xs space-y-1">
+                <label class="text-[10px] text-gray-400 block">Gemini API Key (Optional for live LLM):</label>
+                <div class="flex gap-1">
+                    <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="flex-1 bg-brand-card border border-brand-border text-xs text-white rounded px-2 py-1">
+                    <button onclick="saveApiKey()" class="bg-brand-green text-black px-2 py-1 rounded font-bold text-[10px]">Save</button>
+                </div>
+            </div>
+
+            <!-- Chat Messages Container -->
+            <div id="aiChatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-brand-dark/90 text-xs">
+                <!-- Initial Welcome Message -->
+                <div class="flex gap-2">
+                    <div class="w-6 h-6 rounded-full bg-brand-violet flex items-center justify-center text-white shrink-0 text-[10px]">AI</div>
+                    <div class="bg-brand-card border border-brand-border p-3 rounded-2xl rounded-tl-none text-gray-200 space-y-2 max-w-[85%]">
+                        <p>Salam! 👋 Welcome to <strong>TRIM MEN Salon Karachi</strong>.</p>
+                        <p>How can I assist you today? Ask me about our <strong>services, PKR prices, branch locations (DHA, PECHS, Gulshan, Scheme 33)</strong> or let me guide you to book an appointment!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Suggestions -->
+            <div class="p-2 bg-brand-card/80 border-t border-brand-border/60 flex gap-1.5 overflow-x-auto text-[10px]">
+                <button onclick="sendQuickAiQuery('Show Haircut & Beard prices in PKR')" class="bg-brand-dark hover:bg-brand-border text-gray-300 px-2.5 py-1 rounded-full border border-brand-border whitespace-nowrap">✂️ Hair & Beard Rates</button>
+                <button onclick="sendQuickAiQuery('Where is DHA Phase 6 branch?')" class="bg-brand-dark hover:bg-brand-border text-gray-300 px-2.5 py-1 rounded-full border border-brand-border whitespace-nowrap">📍 DHA Location</button>
+                <button onclick="sendQuickAiQuery('I want to book Janssen Facial')" class="bg-brand-dark hover:bg-brand-border text-gray-300 px-2.5 py-1 rounded-full border border-brand-border whitespace-nowrap">💆 Janssen Facial</button>
+            </div>
+
+            <!-- Chat Input Form -->
+            <div class="p-3 bg-brand-card border-t border-brand-border flex gap-2 items-center">
+                <input type="text" id="aiChatInput" onkeypress="if(event.key==='Enter') sendAiMessage()" placeholder="Ask pricing, services, locations..." class="flex-1 bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-pink">
+                <button onclick="sendAiMessage()" class="bg-brand-pink hover:bg-pink-600 text-white w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING APPOINTMENT MODAL -->
+    <div id="bookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-brand-border w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl space-y-0">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-brand-violet via-brand-pink to-brand-green p-5 flex justify-between items-center text-white">
+                <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-calendar-check text-xl"></i>
+                    <div>
+                        <h3 class="font-extrabold text-base leading-none">Online Appointment Booking</h3>
+                        <p class="text-xs text-pink-100 mt-0.5">TRIM MEN Salon Karachi</p>
+                    </div>
+                </div>
+                <button onclick="closeBookingModal()" class="text-white/80 hover:text-white text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Multi-step Form Content -->
+            <div class="p-6 space-y-5 max-h-[80vh] overflow-y-auto">
+                
+                <!-- Step 1: Branch & Service Selection -->
+                <div class="space-y-4">
+                    <h4 class="text-xs font-bold uppercase text-brand-pink tracking-wider">Step 1: Location & Service</h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Select Karachi Branch *</label>
+                            <select id="bookBranchSelect" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-violet">
+                                <option value="DHA Phase 6">DHA Phase 6 (Main Khayaban-e-Seher)</option>
+                                <option value="PECHS / Tariq Road">PECHS / Tariq Road (Siraj Road)</option>
+                                <option value="Gulshan-e-Iqbal">Gulshan-e-Iqbal (Rashid Minhas Rd)</option>
+                                <option value="Safoora / Scheme 33">Safoora / Scheme 33 (University Rd)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Select Service *</label>
+                            <select id="bookServiceSelect" onchange="updateBookingPrice()" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-violet">
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Specialist & Date/Time Slot -->
+                <div class="space-y-4 pt-2 border-t border-brand-border">
+                    <h4 class="text-xs font-bold uppercase text-brand-green tracking-wider">Step 2: Specialist & Time</h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Barber / Specialist</label>
+                            <select id="bookBarberSelect" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-violet">
+                                <option value="Any Available Specialist">Any Available Barber</option>
+                                <option value="Master Barber Sheroz">Master Barber Sheroz</option>
+                                <option value="Specialist Azhar">Specialist Azhar</option>
+                                <option value="Barber Kamran">Barber Kamran</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Date *</label>
+                            <input type="date" id="bookDateInput" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-violet">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Time Slot *</label>
+                            <select id="bookTimeSelect" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-violet">
+                                <option value="11:30 AM">11:30 AM</option>
+                                <option value="01:00 PM">01:00 PM</option>
+                                <option value="03:30 PM">03:30 PM</option>
+                                <option value="05:00 PM">05:00 PM</option>
+                                <option value="07:00 PM">07:00 PM</option>
+                                <option value="08:30 PM">08:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Customer Details -->
+                <div class="space-y-4 pt-2 border-t border-brand-border">
+                    <h4 class="text-xs font-bold uppercase text-brand-violet tracking-wider">Step 3: Customer Details</h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Full Name *</label>
+                            <input type="text" id="bookCustomerName" placeholder="e.g. Tariq Mahmood" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-pink">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-300 font-medium mb-1">Mobile / WhatsApp Number *</label>
+                            <input type="tel" id="bookCustomerPhone" placeholder="0300 1234567" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-xs text-white focus:border-brand-pink">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Summary Bar -->
+                <div class="bg-brand-dark p-4 rounded-2xl border border-brand-border flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-gray-400">Total Payable at Salon:</p>
+                        <p class="text-xl font-black text-brand-green" id="modalPriceSummary">PKR 1,500</p>
+                    </div>
+                    <span class="text-[10px] text-gray-400">Estimated Duration: <span id="modalDurationSummary" class="text-white font-semibold">30 mins</span></span>
+                </div>
+
+                <div class="pt-2 flex gap-3">
+                    <button onclick="confirmAppointmentBooking()" class="flex-1 bg-gradient-to-r from-brand-pink to-brand-violet hover:from-pink-600 hover:to-purple-700 text-white py-3.5 rounded-xl font-extrabold text-sm shadow-lg transition">
+                        Confirm Appointment Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING CONFIRMATION / PRINT VOUCHER MODAL -->
+    <div id="confirmationModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-brand-green/40 w-full max-w-lg rounded-3xl p-6 space-y-5 text-center shadow-2xl relative">
+            <div class="w-16 h-16 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center mx-auto text-3xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <div class="space-y-1">
+                <h3 class="text-2xl font-extrabold text-white">Booking Confirmed!</h3>
+                <p class="text-xs text-brand-green font-semibold">Appointment Token #TRIM-<span id="confToken">9842</span></p>
+            </div>
+
+            <div id="voucherContent" class="bg-brand-dark p-5 rounded-2xl border border-brand-border text-left space-y-2 text-xs">
+                <div class="flex justify-between border-b border-brand-border pb-2">
+                    <span class="text-gray-400">Salon:</span>
+                    <span class="font-bold text-white">TRIM MEN Karachi</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Customer:</span>
+                    <span class="font-bold text-white" id="confCustomerName">Tariq Mahmood</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Branch:</span>
+                    <span class="font-bold text-brand-pink" id="confBranch">DHA Phase 6</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Service:</span>
+                    <span class="font-bold text-white" id="confService">Executive Haircut</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Specialist:</span>
+                    <span class="font-bold text-white" id="confBarber">Sheroz</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Date & Time:</span>
+                    <span class="font-bold text-brand-green" id="confDateTime">Today at 5:00 PM</span>
+                </div>
+                <div class="flex justify-between border-t border-brand-border pt-2 text-sm font-black">
+                    <span class="text-gray-300">Total Price:</span>
+                    <span class="text-brand-green" id="confPrice">PKR 1,500</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                <button onclick="downloadVoucherTxt()" class="flex-1 bg-brand-dark hover:bg-brand-border border border-brand-border text-white text-xs py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-download"></i> Download Voucher
+                </button>
+                <button onclick="shareBookingWhatsapp()" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp
+                </button>
+            </div>
+            <button onclick="closeConfirmationModal()" class="text-xs text-gray-400 hover:text-white underline pt-2 block mx-auto">Close Window</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark border-t border-brand-border mt-16 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-xs text-gray-400">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg gradient-brand flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <span class="text-lg font-black text-white uppercase tracking-wider">TRIM MEN</span>
+                    </div>
+                    <p class="text-gray-400">Karachi's leading premium men's grooming salon network offering precision haircuts, beard sculpting, advanced facials & spa treatments.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-3">Karachi Salons</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-brand-pink">DHA Phase 6 (Khayaban-e-Seher)</a></li>
+                        <li><a href="#" class="hover:text-brand-pink">PECHS / Tariq Road (Siraj Road)</a></li>
+                        <li><a href="#" class="hover:text-brand-pink">Gulshan-e-Iqbal (Rashid Minhas)</a></li>
+                        <li><a href="#" class="hover:text-brand-pink">Safoora / Scheme 33</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-3">Quick Navigation</h4>
+                    <ul class="space-y-2">
+                        <li><button onclick="switchTab('services')" class="hover:text-brand-green">Services Menu & Rates</button></li>
+                        <li><button onclick="openBookingModal()" class="hover:text-brand-green">Online Appointment Slot</button></li>
+                        <li><button onclick="toggleViewMode()" class="hover:text-brand-green text-amber-300">Salon Management Portal</button></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-white text-sm">Connect With Us</h4>
+                    <div class="flex gap-3 text-base">
+                        <a href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full bg-brand-card flex items-center justify-center text-brand-violet hover:bg-brand-violet hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full bg-brand-card flex items-center justify-center text-brand-pink hover:bg-brand-pink hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/923001234567" target="_blank" class="w-8 h-8 rounded-full bg-brand-card flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-black transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                    <p class="text-[11px] text-gray-500">© 2026 TRIM MEN Salon Karachi. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- APPLICATION LOGIC SCRIPT -->
+    <script>
+        // DATA MODEL: SERVICES CATALOG (Prices in PKR)
+        const servicesData = [
+            { id: 'h1', name: 'Executive Haircut & Styling', price: 1500, duration: '30 mins', category: 'hair', desc: 'Precision haircut customized to head shape, finished with blowdry styling & neck shave.' },
+            { id: 'h2', name: 'Signature Haircut + Hair Wash', price: 2000, duration: '45 mins', category: 'hair', desc: 'Relaxing scalp massage wash with premium conditioner followed by custom haircut.' },
+            { id: 'b1', name: 'Beard Sculpting & Royal Shave', price: 800, duration: '25 mins', category: 'beard', desc: 'Razor edge alignment, hot towel treatment, beard oil hydration & mustache trim.' },
+            { id: 'b2', name: 'Beard Color & Camo Gray Blending', price: 1200, duration: '30 mins', category: 'beard', desc: 'Natural gray coverage beard tinting using gentle ammonia-free color.' },
+            { id: 'f1', name: 'Janssen Cleansing Facial', price: 5000, duration: '50 mins', category: 'facial', desc: 'German Janssen professional skin cleansing, steam exfoliation & blackhead extraction.' },
+            { id: 'f2', name: 'Hydra-Glow Anti-Aging Facial', price: 7500, duration: '60 mins', category: 'facial', desc: 'Deep hydration vacuum therapy for glowing, refreshed men skin.' },
+            { id: 's1', name: 'Deep Tissue Spa Body Massage', price: 3500, duration: '45 mins', category: 'spa', desc: 'Therapeutic pressure massage for shoulders, back & neck muscle tension relief.' },
+            { id: 's2', name: 'Gentleman Pedicure & Manicure', price: 2800, duration: '40 mins', category: 'spa', desc: 'Nail grooming, dead skin scrub & relaxing foot reflexology massage.' }
+        ];
+
+        // DATA MODEL: STAFF ROSTER
+        const staffData = [
+            { name: 'Master Barber Sheroz', branch: 'DHA Phase 6', status: 'In Service', specialty: 'Fade Cuts & Beard Styling', load: '8/10 Today' },
+            { name: 'Specialist Azhar', branch: 'PECHS Tariq Rd', status: 'Available', specialty: 'Janssen Facials & Hair Treatments', load: '5/10 Today' },
+            { name: 'Barber Kamran', branch: 'Gulshan-e-Iqbal', status: 'On Break', specialty: 'Classic Haircuts & Shaves', load: '6/10 Today' },
+            { name: 'Stylist Rizwan', branch: 'Safoora Scheme 33', status: 'Available', specialty: 'Keratin & Hair Coloring', load: '4/10 Today' }
+        ];
+
+        // DATA MODEL: INBOX THREADS
+        let inboxThreads = [
+            { id: 1, name: 'Bilal Farooqui', channel: 'WhatsApp Business', branch: 'DHA Phase 6', status: 'Pending', time: '10 mins ago', lastMsg: 'Assalam u Alaikum, what is the price for Janssen facial at DHA branch?', messages: [{ sender: 'client', text: 'Assalam u Alaikum, what is the price for Janssen facial at DHA branch?' }] },
+            { id: 2, name: 'Shahzeb Khan', channel: 'Instagram DM', branch: 'PECHS / Tariq Rd', status: 'In Progress', time: '25 mins ago', lastMsg: 'Can I get a slot with Barber Sheroz today at 5:00 PM?', messages: [{ sender: 'client', text: 'Can I get a slot with Barber Sheroz today at 5:00 PM?' }] },
+            { id: 3, name: 'Hamza Siddiqui', channel: 'Facebook Messenger', branch: 'Gulshan-e-Iqbal', status: 'Booked', time: '1 hour ago', lastMsg: 'Thanks, I have completed booking on the site.', messages: [{ sender: 'client', text: 'Hi, are you open on Sunday?' }, { sender: 'admin', text: 'Yes Hamza! We operate 11:00 AM - 10:00 PM daily.' }] },
+            { id: 4, name: 'Usman Ali', channel: 'Web Form', branch: 'Scheme 33', status: 'Pending', time: '2 hours ago', lastMsg: 'Need wedding package details for next Friday.', messages: [{ sender: 'client', text: 'Need wedding package details for next Friday.' }] }
+        ];
+
+        let currentActiveThreadId = 1;
+        let isAdminView = false;
+        let lastCreatedBooking = null;
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderServicesGrid('all');
+            populateServiceDropdown();
+            renderStaffRoster();
+            renderTodayAppointments();
+            renderInboxList();
+            initChart();
+            // Set default date picker to today
+            document.getElementById('bookDateInput').value = new Date().toISOString().split('T')[0];
+        };
+
+        // RENDER SERVICES GRID
+        function renderServicesGrid(filter) {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? servicesData : servicesData.filter(s => s.category === filter);
+
+            filtered.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'bg-brand-card rounded-2xl p-6 border border-brand-border space-y-4 hover:border-brand-pink/50 transition flex flex-col justify-between';
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-brand-violet/20 text-brand-violet border border-brand-violet/30">${service.category}</span>
+                            <span class="text-xs bg-brand-dark px-2.5 py-1 rounded-full text-gray-300 font-semibold border border-brand-border"><i class="fa-regular fa-clock mr-1 text-brand-green"></i>${service.duration}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">${service.name}</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">${service.desc}</p>
+                    </div>
+                    <div class="pt-4 border-t border-brand-border flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gray-400 block">Price:</span>
+                            <span class="text-xl font-black text-brand-green">PKR ${service.price.toLocaleString()}</span>
+                        </div>
+                        <button onclick="quickBookService('${service.id}')" class="bg-gradient-to-r from-brand-pink to-brand-violet text-white text-xs px-4 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-brand-pink/20 transition">
+                            Book Slot
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterServices(category) {
+            document.querySelectorAll('.service-tab').forEach(tab => {
+                tab.classList.remove('active', 'bg-brand-violet', 'text-white');
+                tab.classList.add('text-gray-400');
+            });
+            event.target.classList.add('active', 'bg-brand-violet', 'text-white');
+            event.target.classList.remove('text-gray-400');
+            renderServicesGrid(category);
+        }
+
+        // VIEW MODE SWITCHER (CUSTOMER vs ADMIN)
+        function toggleViewMode() {
+            isAdminView = !isAdminView;
+            const customerPortal = document.getElementById('customerPortal');
+            const adminPortal = document.getElementById('adminPortal');
+            const customerNav = document.getElementById('customerNav');
+            const adminNav = document.getElementById('adminNav');
+            const btn = document.getElementById('viewModeToggleBtn');
+
+            if(isAdminView) {
+                customerPortal.classList.add('hidden');
+                adminPortal.classList.remove('hidden');
+                customerNav.classList.add('hidden');
+                adminNav.classList.remove('hidden');
+                btn.innerHTML = `<i class="fa-solid fa-house"></i> Switch to Customer Website`;
+            } else {
+                customerPortal.classList.remove('hidden');
+                adminPortal.classList.add('hidden');
+                customerNav.classList.remove('hidden');
+                adminNav.classList.add('hidden');
+                btn.innerHTML = `<i class="fa-solid fa-sliders"></i> Switch to Admin Workspace`;
+            }
+        }
+
+        function switchTab(tab) {
+            if(isAdminView) toggleViewMode();
+            if(tab === 'branches') {
+                document.getElementById('branchesSection').scrollIntoView({ behavior: 'smooth' });
+            } else if(tab === 'campaigns') {
+                document.getElementById('campaignsSection').scrollIntoView({ behavior: 'smooth' });
+            } else if(tab === 'booking') {
+                openBookingModal();
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.admin-link').forEach(el => el.classList.remove('active', 'bg-brand-pink', 'text-white'));
+
+            if(tabName === 'inbox') {
+                document.getElementById('adminInboxTab').classList.remove('hidden');
+            } else if(tabName === 'crm') {
+                document.getElementById('adminCrmTab').classList.remove('hidden');
+            } else if(tabName === 'operations') {
+                document.getElementById('adminOperationsTab').classList.remove('hidden');
+            } else if(tabName === 'analytics') {
+                document.getElementById('adminAnalyticsTab').classList.remove('hidden');
+            }
+            event.target.classList.add('active', 'bg-brand-pink', 'text-white');
+        }
+
+        // POPULATE BOOKING DROPDOWN
+        function populateServiceDropdown() {
+            const select = document.getElementById('bookServiceSelect');
+            select.innerHTML = '';
+            servicesData.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.name;
+                opt.textContent = `${s.name} - PKR ${s.price.toLocaleString()}`;
+                opt.dataset.price = s.price;
+                opt.dataset.duration = s.duration;
+                select.appendChild(opt);
+            });
+            updateBookingPrice();
+        }
+
+        function updateBookingPrice() {
+            const select = document.getElementById('bookServiceSelect');
+            const selectedOpt = select.options[select.selectedIndex];
+            if(selectedOpt) {
+                document.getElementById('modalPriceSummary').textContent = `PKR ${parseInt(selectedOpt.dataset.price).toLocaleString()}`;
+                document.getElementById('modalDurationSummary').textContent = selectedOpt.dataset.duration;
+            }
+        }
+
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function selectBranchAndBook(branchName) {
+            document.getElementById('bookBranchSelect').value = branchName;
+            openBookingModal();
+        }
+
+        function quickBookService(serviceId) {
+            const serv = servicesData.find(s => s.id === serviceId);
+            if(serv) {
+                document.getElementById('bookServiceSelect').value = serv.name;
+                updateBookingPrice();
+            }
+            openBookingModal();
+        }
+
+        function quickBookCampaign(campaignName) {
+            openBookingModal();
+        }
+
+        // CONFIRM BOOKING & GENERATE VOUCHER
+        function confirmAppointmentBooking() {
+            const name = document.getElementById('bookCustomerName').value.trim();
+            const phone = document.getElementById('bookCustomerPhone').value.trim();
+            const branch = document.getElementById('bookBranchSelect').value;
+            const service = document.getElementById('bookServiceSelect').value;
+            const barber = document.getElementById('bookBarberSelect').value;
+            const date = document.getElementById('bookDateInput').value;
+            const time = document.getElementById('bookTimeSelect').value;
+            const price = document.getElementById('modalPriceSummary').textContent;
+
+            if(!name || !phone) {
+                alert('Please enter your Name and Mobile Number to confirm booking.');
+                return;
+            }
+
+            const token = Math.floor(1000 + Math.random() * 9000);
+            lastCreatedBooking = { name, phone, branch, service, barber, date, time, price, token };
+
+            document.getElementById('confToken').textContent = token;
+            document.getElementById('confCustomerName').textContent = name;
+            document.getElementById('confBranch').textContent = branch;
+            document.getElementById('confService').textContent = service;
+            document.getElementById('confBarber').textContent = barber;
+            document.getElementById('confDateTime').textContent = `${date} at ${time}`;
+            document.getElementById('confPrice').textContent = price;
+
+            closeBookingModal();
+            document.getElementById('confirmationModal').classList.remove('hidden');
+
+            // Add to admin list dynamically
+            inboxThreads.unshift({
+                id: Date.now(),
+                name: name,
+                channel: 'Web Booking',
+                branch: branch,
+                status: 'Booked',
+                time: 'Just Now',
+                lastMsg: `Booked ${service} for ${date} ${time}`,
+                messages: [{ sender: 'client', text: `Online Booking Confirmed: ${service} at ${branch} on ${date} ${time}. Token: TRIM-${token}` }]
+            });
+            renderInboxList();
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+        }
+
+        function downloadVoucherTxt() {
+            if(!lastCreatedBooking) return;
+            const content = `TRIM MEN SALON KARACHI - BOOKING VOUCHER\n` +
+                            `-------------------------------------------\n` +
+                            `Token ID: TRIM-${lastCreatedBooking.token}\n` +
+                            `Customer Name: ${lastCreatedBooking.name}\n` +
+                            `Branch: ${lastCreatedBooking.branch}\n` +
+                            `Service: ${lastCreatedBooking.service}\n` +
+                            `Specialist: ${lastCreatedBooking.barber}\n` +
+                            `Date & Time: ${lastCreatedBooking.date} at ${lastCreatedBooking.time}\n` +
+                            `Total Price: ${lastCreatedBooking.price}\n` +
+                            `Operating Hours: 11:00 AM - 10:00 PM\n` +
+                            `-------------------------------------------\n` +
+                            `Thank you for choosing TRIM MEN Salon!`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `TRIM_MEN_Booking_${lastCreatedBooking.token}.txt`;
+            a.click();
+        }
+
+        function shareBookingWhatsapp() {
+            if(!lastCreatedBooking) return;
+            const msg = encodeURIComponent(`Hi TRIM MEN Salon Karachi! I booked an appointment.\nToken: TRIM-${lastCreatedBooking.token}\nName: ${lastCreatedBooking.name}\nBranch: ${lastCreatedBooking.branch}\nService: ${lastCreatedBooking.service}\nDate/Time: ${lastCreatedBooking.date} ${lastCreatedBooking.time}`);
+            window.open(`https://wa.me/923001234567?text=${msg}`, '_blank');
+        }
+
+        // AI CHATBOT SYSTEM (With Optional Gemini API Key & Smart Fallbacks)
+        let geminiApiKey = '';
+
+        function toggleAiChat() {
+            const win = document.getElementById('aiChatWindow');
+            win.classList.toggle('hidden');
+        }
+
+        function toggleGeminiSettings() {
+            document.getElementById('geminiKeyBar').classList.toggle('hidden');
+        }
+
+        function saveApiKey() {
+            geminiApiKey = document.getElementById('geminiApiKeyInput').value.trim();
+            if(geminiApiKey) alert('Gemini API Key Saved!');
+            toggleGeminiSettings();
+        }
+
+        function sendQuickAiQuery(text) {
+            document.getElementById('aiChatInput').value = text;
+            sendAiMessage();
+        }
+
+        async function sendAiMessage() {
+            const input = document.getElementById('aiChatInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const messagesContainer = document.getElementById('aiChatMessages');
+            
+            // Append User Message
+            const userBubble = document.createElement('div');
+            userBubble.className = 'flex justify-end';
+            userBubble.innerHTML = `<div class="bg-brand-pink text-white p-3 rounded-2xl rounded-tr-none max-w-[85%]">${text}</div>`;
+            messagesContainer.appendChild(userBubble);
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Typing Indicator
+            const typingBubble = document.createElement('div');
+            typingBubble.className = 'flex gap-2 id-typing';
+            typingBubble.innerHTML = `<div class="w-6 h-6 rounded-full bg-brand-violet flex items-center justify-center text-white shrink-0 text-[10px]">AI</div><div class="bg-brand-card border border-brand-border p-2 rounded-xl text-gray-400 italic">Thinking...</div>`;
+            messagesContainer.appendChild(typingBubble);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            let reply = '';
+
+            // If API key available, query Gemini API, else fallback
+            if(geminiApiKey) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${geminiApiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{ text: `You are TRIM MEN Salon Karachi AI CS Agent. Services: Executive Haircut (1500 PKR), Beard Sculpting (800 PKR), Janssen Facial (5000 PKR), Deep Tissue Massage (3500 PKR). Branches: DHA Phase 6, PECHS Tariq Rd, Gulshan-e-Iqbal, Safoora Scheme 33. Hours: 11 AM - 10 PM. Answer concisely: ${text}` }]
+                            }]
+                        })
+                    });
+                    const data = await response.json();
+                    reply = data.candidates[0].content.parts[0].text;
+                } catch(e) {
+                    reply = getSmartFallbackReply(text);
+                }
+            } else {
+                setTimeout(() => {
+                    reply = getSmartFallbackReply(text);
+                    finishReply();
+                }, 600);
+                return;
+            }
+
+            finishReply();
+
+            function finishReply() {
+                const typing = messagesContainer.querySelector('.id-typing');
+                if(typing) typing.remove();
+
+                const aiBubble = document.createElement('div');
+                aiBubble.className = 'flex gap-2';
+                aiBubble.innerHTML = `
+                    <div class="w-6 h-6 rounded-full bg-brand-violet flex items-center justify-center text-white shrink-0 text-[10px]">AI</div>
+                    <div class="bg-brand-card border border-brand-border p-3 rounded-2xl rounded-tl-none text-gray-200 space-y-2 max-w-[85%]">${reply}</div>
+                `;
+                messagesContainer.appendChild(aiBubble);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+
+        function getSmartFallbackReply(q) {
+            const query = q.toLowerCase();
+            if(query.includes('price') || query.includes('rate') || query.includes('cost') || query.includes('haircut')) {
+                return ` Here are our main PKR published prices:\n• Executive Haircut: PKR 1,500\n• Signature Cut + Wash: PKR 2,000\n• Beard Sculpting & Royal Shave: PKR 800\n• Janssen Cleansing Facial: PKR 5,000\n• Deep Tissue Massage: PKR 3,500`;
+            } else if(query.includes('dha') || query.includes('location') || query.includes('branch') || query.includes('pechs') || query.includes('gulshan')) {
+                return ` We have 4 prime Karachi locations:\n1. DHA Phase 6 (Main Khayaban-e-Seher)\n2. PECHS / Tariq Road (Siraj Road)\n3. Gulshan-e-Iqbal (Rashid Minhas Rd)\n4. Safoora / Scheme 33 (University Rd)\n\nAll operating daily 11:00 AM - 10:00 PM!`;
+            } else if(query.includes('facial') || query.includes('janssen')) {
+                return ` Our Janssen Cleansing Facial (PKR 5,000, 50 mins) includes steam exfoliation, blackhead removal & German skin rejuvenation! Would you like to book a slot at DHA or PECHS?`;
+            } else if(query.includes('book') || query.includes('appointment')) {
+                return ` You can book instantly by clicking the "Book Appointment" button on top or let me know your preferred Karachi branch and time!`;
+            } else {
+                return ` TRIM MEN Salon offers top haircuts, beard trims, facials & massages in DHA Phase 6, PECHS, Gulshan & Scheme 33. Feel free to ask about rates or click 'Book Online'!`;
+            }
+        }
+
+        // ADMIN INBOX RENDER & MANAGEMENT
+        function renderInboxList() {
+            const container = document.getElementById('inboxThreadList');
+            container.innerHTML = '';
+
+            inboxThreads.forEach(t => {
+                const item = document.createElement('div');
+                item.onclick = () => selectThread(t.id);
+                item.className = `p-3 rounded-xl border border-brand-border cursor-pointer transition ${t.id === currentActiveThreadId ? 'bg-brand-violet/20 border-brand-violet' : 'bg-brand-dark hover:bg-brand-border/40'}`;
+                item.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <span class="font-bold text-white text-xs">${t.name}</span>
+                        <span class="text-[10px] text-gray-400">${t.time}</span>
+                    </div>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-[9px] bg-brand-pink/20 text-brand-pink px-1.5 py-0.5 rounded font-semibold">${t.channel}</span>
+                        <span class="text-[9px] text-gray-400">${t.branch}</span>
+                    </div>
+                    <p class="text-[11px] text-gray-300 truncate mt-1.5">${t.lastMsg}</p>
+                `;
+                container.appendChild(item);
+            });
+
+            if(inboxThreads.length > 0) selectThread(currentActiveThreadId);
+        }
+
+        function selectThread(id) {
+            currentActiveThreadId = id;
+            const thread = inboxThreads.find(t => t.id === id);
+            if(!thread) return;
+
+            document.getElementById('activeCustomerName').textContent = thread.name;
+            document.getElementById('activeCustomerMeta').textContent = `${thread.channel} • Branch: ${thread.branch}`;
+            document.getElementById('activeThreadStatus').textContent = thread.status;
+
+            const msgContainer = document.getElementById('activeThreadMessages');
+            msgContainer.innerHTML = '';
+
+            thread.messages.forEach(m => {
+                const bubble = document.createElement('div');
+                bubble.className = `flex ${m.sender === 'admin' ? 'justify-end' : 'justify-start'}`;
+                bubble.innerHTML = `
+                    <div class="${m.sender === 'admin' ? 'bg-brand-violet text-white' : 'bg-brand-dark text-gray-200 border border-brand-border'} p-3 rounded-2xl text-xs max-w-[80%]">
+                        ${m.text}
+                    </div>
+                `;
+                msgContainer.appendChild(bubble);
+            });
+        }
+
+        function insertTemplate(templateType) {
+            const input = document.getElementById('adminReplyInput');
+            if(templateType.includes('DHA pricing')) {
+                input.value = "Our DHA Phase 6 salon rates: Executive Haircut PKR 1,500 | Beard Sculpting PKR 800 | Janssen Facial PKR 5,000.";
+            } else if(templateType.includes('Confirm 4:00 PM')) {
+                input.value = "Your slot is confirmed for today at 4:00 PM with Master Barber Sheroz. See you soon!";
+            } else if(templateType.includes('WhatsApp Booking')) {
+                input.value = "Please complete your slot details on WhatsApp here: https://wa.me/923001234567";
+            }
+        }
+
+        function sendAdminReply() {
+            const input = document.getElementById('adminReplyInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const thread = inboxThreads.find(t => t.id === currentActiveThreadId);
+            if(thread) {
+                thread.messages.push({ sender: 'admin', text: text });
+                thread.lastMsg = `Admin: ${text}`;
+                thread.status = 'In Progress';
+                selectThread(currentActiveThreadId);
+                renderInboxList();
+            }
+            input.value = '';
+        }
+
+        // RENDER STAFF ROSTER
+        function renderStaffRoster() {
+            const grid = document.getElementById('staffRosterGrid');
+            grid.innerHTML = '';
+
+            staffData.forEach(s => {
+                const card = document.createElement('div');
+                card.className = 'bg-brand-dark p-4 rounded-xl border border-brand-border space-y-2 text-xs';
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">${s.name}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full ${s.status === 'Available' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${s.status}</span>
+                    </div>
+                    <p class="text-gray-400"><i class="fa-solid fa-store text-brand-pink mr-1"></i> ${s.branch}</p>
+                    <p class="text-brand-green font-medium">${s.specialty}</p>
+                    <div class="pt-2 border-t border-brand-border flex justify-between text-gray-500 text-[10px]">
+                        <span>Today's Capacity: ${s.load}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderTodayAppointments() {
+            const list = document.getElementById('todayAppointmentsList');
+            list.innerHTML = `
+                <div class="p-3 bg-brand-dark rounded-xl border border-brand-border flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-white">Tariq Mahmood</p>
+                        <p class="text-[10px] text-gray-400">Executive Haircut • DHA Phase 6</p>
+                    </div>
+                    <span class="bg-brand-green/20 text-brand-green px-2 py-1 rounded text-[10px] font-bold">5:00 PM</span>
+                </div>
+                <div class="p-3 bg-brand-dark rounded-xl border border-brand-border flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-white">Kamran Akmal</p>
+                        <p class="text-[10px] text-gray-400">Janssen Facial • PECHS Tariq Rd</p>
+                    </div>
+                    <span class="bg-brand-violet/20 text-brand-violet px-2 py-1 rounded text-[10px] font-bold">6:30 PM</span>
+                </div>
+            `;
+        }
+
+        // INITIALIZE CHART.JS
+        function initChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['DHA Phase 6', 'PECHS / Tariq Rd', 'Gulshan-e-Iqbal', 'Safoora Scheme 33'],
+                    datasets: [{
+                        label: 'Monthly Revenue (PKR)',
+                        data: [1150000, 820000, 540000, 330000],
+                        backgroundColor: ['#db2777', '#7c3aed', '#65a30d', '#a855f7'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { ticks: { color: '#9ca3af' }, grid: { display: false } },
+                        y: { ticks: { color: '#9ca3af' }, grid: { color: '#2a3447' } }
+                    }
+                }
+            });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
